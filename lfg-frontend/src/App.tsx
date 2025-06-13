@@ -1,11 +1,18 @@
 import './App.css';
+import { Homepage } from './components/Homepage/Homepage';
+import { Header } from './components/Header/Header';
+import { Footer } from './components/Footer/Footer';
+import type { JSX } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
-function App() {
+export const App = (): JSX.Element => {
   return (
-    <div>
-      Test.
-    </div>
+    <BrowserRouter>
+      <div className="h-full">
+        <Header />
+        <Homepage />
+        <Footer />
+      </div>
+    </BrowserRouter>
   )
-}
-
-export default App
+};
