@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { Listing } from './types';
+import type { Listing } from '../features/listings/types';
 
 const API_URL = 'http://localhost:4000/api/listings';
 
