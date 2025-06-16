@@ -13,12 +13,14 @@ export const App = (): JSX.Element => {
     <BrowserRouter>
       <div className="h-full">
         <Header />
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/chat" element={<Chat />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Routes>
+        <div className='flex-grow w-full max-w-8/10 mx-auto'>
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/chat" element={<Chat />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Routes>
+        </div>
         <Footer />
       </div>
     </BrowserRouter>

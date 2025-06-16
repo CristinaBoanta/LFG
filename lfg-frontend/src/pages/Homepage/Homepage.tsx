@@ -17,11 +17,15 @@ export const Homepage = (): JSX.Element => {
 
     return (
         <div className="min-h-screen flex flex-col items-center p-4">
-            <div className="flex-grow w-full max-w-7xl">
+            <div>
                 <div className="flex justify-between items-center ">
-                    <div className="flex gap-2 py-8">
+                    <div className="flex gap-3 py-8 items-center">
                         <Button variant="outline">Most Popular</Button>
                         <Button variant="outline">My Games</Button>
+
+                        <div className="flex-grow ml-6">
+                            <input type="text" placeholder="Search for a game" className="w-full min-w-64 border border-gray-500 rounded-md p-2" />
+                        </div>
                     </div>
                     <div className="gap-2 flex">
                         <Button variant="outline">Add game</Button>
@@ -46,9 +50,10 @@ export const Homepage = (): JSX.Element => {
 
                                     <div className="flex items-center gap-1">
                                         <div className="mb-[-2px] text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 animate-pulse">
-                                           230
+                                            230
                                         </div>
-                                        active groups</div>
+                                        <div className="border-b border-transparent">active groups</div>
+                                    </div>
                                 </CardFooter>
                             </Card>
                         )
