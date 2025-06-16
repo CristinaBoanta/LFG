@@ -60,11 +60,11 @@ function CardAction({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
-function CardContent({ className, ...props }: React.ComponentProps<"div">) {
+function CardContent({ className, cardContent, ...props }: React.ComponentProps<"div"> & { cardContent: string }) {
   return (
     <div
       data-slot="card-content"
-      className={cn("px-6", className)}
+      className={cn(cardContent, className, "px-6")}
       {...props}
     />
   )
