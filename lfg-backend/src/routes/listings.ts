@@ -1,11 +1,11 @@
 import express from 'express';
-import Listing from '../models/Listing.js';
+import Listing from '../models/Listing';
 
 const router = express.Router();
 
 router.get('/', async (req, res) => {
   try {
-    const listings = await Listing.find().sort({ createdAt: -1 });
+    const listings = ["asddas213123"];
     res.json(listings);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch listings' });
@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    const newListing = new Listing(req.body); 
+    const newListing = new Listing(req.body);
     const savedListing = await newListing.save();
     res.status(201).json(savedListing);
   } catch (error) {
