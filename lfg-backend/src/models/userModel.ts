@@ -5,12 +5,14 @@ import validator from 'validator';
 const Schema = mongoose.Schema;
 
 interface IUser {
+  _id: mongoose.Types.ObjectId;
   email: string;
   password: string;
 }
 
 interface UserModel extends mongoose.Model<IUser> {
   register(email: string, password: string): Promise<IUser>;
+  login(email: string, password: string): Promise<IUser>;
 }
 
 const userSchema = new Schema<IUser, UserModel>({
@@ -58,6 +60,26 @@ userSchema.statics.register = async function (this: mongoose.Model<any>, email: 
   const hash = await bcrypt.hash(password, salt);
 
   const user = await this.create({ email, password: hash });
+  return user;
+}
+
+// static login method
+
+userSchema.statics.login = async function (email: string, password: string) {
+  if (!email || !password) {
+    throw new Error('All fields are required');
+  }
+
+  const user = await this.findOne({ email });
+  if (!user) {
+    throw new Error('Incorrect email');
+  }
+
+  const match = await bcrypt.compare(password, user.password);
+  if(!match) {
+    throw new Error('Incorrect password');
+  }
+
   return user;
 }
 
