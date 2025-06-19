@@ -12,9 +12,9 @@ export const Header = (): JSX.Element => {
                     </div>
 
                     <nav className="hidden md:flex space-x-8">
-                        <Link to="/login" className="flex items-center gap-3 text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+                        <Link to="/register" className="flex items-center gap-3 text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
                             <FaUser />
-                            <div>Log In</div>
+                            <div>Sign Up</div>
                         </Link>
                         <Link to="/" className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
                             Home

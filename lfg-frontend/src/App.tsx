@@ -7,6 +7,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { About } from './pages/About/About';
 import { Chat } from './pages/Chat/Chat';
 import { Dashboard } from './pages/Dashboard/Dashboard';
+import { Register } from './pages/Register/Register';
+import { Login } from './pages/Login/Login';
 
 export const App = (): JSX.Element => {
   return (
@@ -19,6 +21,8 @@ export const App = (): JSX.Element => {
             <Route path="/about" element={<About />} />
             <Route path="/chat" element={<Chat />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
         <Footer />
