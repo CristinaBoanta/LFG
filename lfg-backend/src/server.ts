@@ -25,7 +25,6 @@ app.use((req, res, next) => {
 app.use('/api/user', userRoutes);
 app.use('/api/listings', listingsRoutes);
 
-
 mongoose.connect(MONGO_URI)
   .then(() => {
     console.log('✅ Connected to MongoDB');

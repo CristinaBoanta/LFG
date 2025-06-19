@@ -6,6 +6,7 @@ import {
     useFormikContext,
 } from 'formik';
 import { useValidationSchemaRegister } from "../../hooks/validation/useValidationSchemaRegister";
+import { useRegister } from "../../hooks/useRegister";
 
 interface RegisterFormValues {
     email: string;
@@ -66,11 +67,10 @@ const RegisterFormFields = () => {
 export const Register = () => {
 
     const validationSchema = useValidationSchemaRegister();
+    const { register, isLoading, error } = useRegister();
 
     const handleSubmit = async (values: RegisterFormValues) => {
-        // console.log("form submit triggered");
-        // console.log("Email from Formik:", values.email);
-        // console.log("Password from Formik:", values.password);
+        await register(values.email, values.password);
     }
 
     return (
