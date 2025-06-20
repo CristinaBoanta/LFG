@@ -22,8 +22,8 @@ export const GroupListItem = ({ className }: GroupListItemProps): JSX.Element =>
                     <img src="/images/dragon.png" alt="Group Logo" className="w-full h-full object-cover p-2" />
                 </div>
                 <div className="flex flex-col justify-center">
-                    <h3 className="text-lg font-bold">Group Name</h3>
-                    <p className="text-sm text-gray-500">Group Description</p>
+                    <h3 className="text-lg font-bold">Game Name</h3>
+                    <p className="text-sm text-gray-500">Game Description</p>
                     <div className="flex items-center gap-2">
                         <div className="text-sm text-gray-500">123 members</div>
                     </div>

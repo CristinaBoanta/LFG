@@ -2,15 +2,28 @@ import './App.css';
 import { Homepage } from './pages/Homepage/Homepage';
 import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
-import type { JSX } from 'react';
+import { useEffect, type JSX } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { About } from './pages/About/About';
 import { Chat } from './pages/Chat/Chat';
 import { Dashboard } from './pages/Dashboard/Dashboard';
 import { Register } from './pages/Register/Register';
 import { Login } from './pages/Login/Login';
+import { useDispatch } from 'react-redux';
+import { setUser } from './store/authSlice';
 
 export const App = (): JSX.Element => {
+
+  const dispatch = useDispatch();
+
+useEffect(() => {
+  const userString = localStorage.getItem('user');
+  if (userString) {
+    const user = JSON.parse(userString);
+    dispatch(setUser(user));
+  }
+}, []);
+
   return (
     <BrowserRouter>
       <div className="h-full">

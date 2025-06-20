@@ -3,11 +3,14 @@ import { FaUser } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { Button } from "../Button/Button";
 import { useLogout } from "../../hooks/useLogout";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../store";
 
 export const Header = (): JSX.Element => {
 
     const { logout } = useLogout();
 
+    const user = useSelector((state: RootState) => state.auth.user);
     const handleLogout = () => {
         logout();
     }
@@ -21,24 +24,24 @@ export const Header = (): JSX.Element => {
                     </div>
 
                     <nav className="hidden md:flex space-x-8">
-                        <Link to="/register" className="flex items-center gap-3 text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
-                            <FaUser />
-                            <div>Sign Up</div>
-                        </Link>
-                        <Link to="/login" className="flex items-center gap-3 text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
-                            <FaUser />
-                            <div>Log In</div>
-                        </Link>
-                        <Link to="/" className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
-                            Home
-                        </Link>
-                        <Link to="/about" className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
-                            About
-                        </Link>
-                        <Link to="/contact" className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
-                            Contact
-                        </Link>
-                        <Button variant="outline" onClick={handleLogout}>Logout</Button>
+                        <div className="flex items-center justify-center">
+
+                            {!user && <div className="flex items-center">
+                                <Link to="/register" className="flex items-center gap-3 text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+                                    <FaUser />
+                                    <div>Sign Up</div>
+                                </Link>
+                                <Link to="/login" className="flex items-center gap-3 text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+                                    <FaUser />
+                                    <div>Log In</div>
+                                </Link>
+                            </div>}
+                        </div>
+
+                        <div className="flex gap-3 items-center">
+                            {user && <div className="text-gray-600">{user.email}</div>}
+                            {user && <Button variant="outline" onClick={handleLogout}>Logout</Button>}
+                        </div>
                     </nav>
 
                     <div className="md:hidden">
