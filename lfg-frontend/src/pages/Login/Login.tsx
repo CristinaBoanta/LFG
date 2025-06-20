@@ -5,7 +5,8 @@ import {
     Field,
     useFormikContext,
 } from 'formik';
-import { useValidationSchemaSignIn } from "../../hooks/validation/useValidationSchemaRegister";
+import { useValidationSchemaSignIn } from "../../hooks/validation/useValidationSchemaAuth";
+import { useLogin } from "../../hooks/useLogin";
 
 interface LoginFormValues {
     email: string;
@@ -26,13 +27,11 @@ const LoginFormFields = () => {
     const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
         handleChange(e); 
         setEmail(e.target.value);
-        console.log("Email: ", email);
     }
     
     const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
         handleChange(e);
         setPassword(e.target.value);
-        console.log("Password: ", password);
     }
 
     return (
@@ -66,11 +65,10 @@ const LoginFormFields = () => {
 export const Login = () => {
 
     const validationSchema = useValidationSchemaSignIn();
+    const { login, error, isLoading } = useLogin();
 
     const handleSubmit = async (values: LoginFormValues) => {
-        // console.log("form submit triggered");
-        // console.log("Email from Formik:", values.email);
-        // console.log("Password from Formik:", values.password);
+        await login(values.email, values.password);
     }
 
     return (
@@ -82,7 +80,8 @@ export const Login = () => {
             >
                 <Form>
                     <LoginFormFields />
-                    <button type="submit">Submit</button>
+                    <button disabled={isLoading} type="submit">Submit</button>
+                    {error && <div className="text-red-500 border border-red-500">{error}</div>}
                 </Form>
             </Formik>
         </div>

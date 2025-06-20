@@ -5,7 +5,7 @@ import {
     Field,
     useFormikContext,
 } from 'formik';
-import { useValidationSchemaRegister } from "../../hooks/validation/useValidationSchemaRegister";
+import { useValidationSchemaRegister } from "../../hooks/validation/useValidationSchemaAuth";
 import { useRegister } from "../../hooks/useRegister";
 
 interface RegisterFormValues {
@@ -27,13 +27,11 @@ const RegisterFormFields = () => {
     const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
         handleChange(e);
         setEmail(e.target.value);
-        // console.log("Email: ", email);
     }
 
     const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
         handleChange(e);
         setPassword(e.target.value);
-        // console.log("Password: ", password);
     }
 
     return (

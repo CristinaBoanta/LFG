@@ -25,6 +25,10 @@ export const Header = (): JSX.Element => {
                             <FaUser />
                             <div>Sign Up</div>
                         </Link>
+                        <Link to="/login" className="flex items-center gap-3 text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+                            <FaUser />
+                            <div>Log In</div>
+                        </Link>
                         <Link to="/" className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
                             Home
                         </Link>
