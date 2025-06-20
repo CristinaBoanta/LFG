@@ -31,10 +31,6 @@ const loginUser = async (req: Request, res: Response) => {
 // register user
 const registerUser = async (req: Request, res: Response) => {
     const { email, password } = req.body;
-
-    // console.log('Request body:', req.body);
-    // console.log('Email type:', typeof email);
-    // console.log('Email value:', email);
     
     try {
         const user = await User.register(email, password);

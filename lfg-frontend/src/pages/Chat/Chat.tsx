@@ -1,6 +1,6 @@
 import type { JSX } from "react";
 import { useState } from "react";
-import { Button } from "../../components/Button/Button";
+import { GameRoomList } from "../../components/GameRoomList/GameRoomList";
 
 interface Message {
     id: string;
@@ -48,8 +48,8 @@ export const Chat = (): JSX.Element => {
                         >
                             <div
                                 className={`max-w-[70%] rounded-lg p-3 backdrop-blur-sm ${message.sender === "user"
-                                        ? "bg-blue-600/80 text-white shadow-lg"
-                                        : "bg-white/70 text-gray-800 shadow-md"
+                                    ? "bg-blue-600/80 text-white shadow-lg"
+                                    : "bg-white/70 text-gray-800 shadow-md"
                                     }`}
                             >
                                 <p>{message.text}</p>
@@ -94,21 +94,7 @@ export const Chat = (): JSX.Element => {
                 </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-800 backdrop-blur-sm min-h-[20vh] border border-gray-700">
-                <div className="bg-gray-800 rounded-md border border-gray-700 p-2">
-                    Game name
-                </div>
-
-                <div>
-                    <Button variant="outline">Create room</Button>
-                </div>
-
-                <div className="rooms">
-                    <div className="bg-gray-800 rounded-md border border-gray-700 mx-4 p-2 cursor-pointer hover:bg-gray-700 transition-all transition duration-300 ease-in-out hover:shadow-md dark:hover:shadow-white/20">
-                        Game chat room
-                    </div>
-                </div>
-            </div>
+            <GameRoomList />
         </div>
     );
 };

@@ -5,7 +5,7 @@ export const Dashboard = (): JSX.Element => {
     return (
         <div className="flex items-center justify-center my-8">
             <div className="w-full">
-                <h1 className="text-2xl mb-4">Groups</h1>
+                <h1 className="text-2xl mb-4">{`{Game name}`} groups</h1>
 
                 <GroupList />
             </div>
