@@ -1,8 +1,17 @@
 import type { JSX } from "react";
 import { FaUser } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { Button } from "../Button/Button";
+import { useLogout } from "../../hooks/useLogout";
 
 export const Header = (): JSX.Element => {
+
+    const { logout } = useLogout();
+
+    const handleLogout = () => {
+        logout();
+    }
+
     return (
         <header className="bg-white shadow-md">
             <div className="max-w-8/10 mx-auto">
@@ -25,6 +34,7 @@ export const Header = (): JSX.Element => {
                         <Link to="/contact" className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
                             Contact
                         </Link>
+                        <Button variant="outline" onClick={handleLogout}>Logout</Button>
                     </nav>
 
                     <div className="md:hidden">
