@@ -2,8 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import listingsRoutes from './routes/listings';
 import userRoutes from './routes/user';
+import groupsRoutes from './routes/groups';
 
 dotenv.config();
 
@@ -23,7 +23,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/user', userRoutes);
-app.use('/api/listings', listingsRoutes);
+app.use('/api/groups', groupsRoutes);
 
 mongoose.connect(MONGO_URI)
   .then(() => {

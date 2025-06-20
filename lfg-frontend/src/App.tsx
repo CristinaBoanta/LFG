@@ -9,6 +9,7 @@ import { Chat } from './pages/Chat/Chat';
 import { Dashboard } from './pages/Dashboard/Dashboard';
 import { Register } from './pages/Register/Register';
 import { Login } from './pages/Login/Login';
+import { Profile } from './pages/Profile/Profile';
 import { useDispatch } from 'react-redux';
 import { setUser } from './store/authSlice';
 
@@ -36,6 +37,7 @@ useEffect(() => {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </div>
         <Footer />

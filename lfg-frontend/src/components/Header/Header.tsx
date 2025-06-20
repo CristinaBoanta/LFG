@@ -39,6 +39,10 @@ export const Header = (): JSX.Element => {
                         </div>
 
                         <div className="flex gap-3 items-center">
+                            {user && <Link to="/profile" className="flex items-center gap-3 text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+                                <FaUser />
+                                <div>My profile</div>
+                            </Link>}
                             {user && <div className="text-gray-600">{user.email}</div>}
                             {user && <Button variant="outline" onClick={handleLogout}>Logout</Button>}
                         </div>

@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 
-const listingSchema = new mongoose.Schema({
-  gameTitle: { type: String, required: true },
-  gameDescription: { type: String, required: true },
+const groupSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  description: { type: String, required: true },
   // platform: { type: String, required: true },
   // region: { type: String, required: true },
   // playstyle: { type: [String], default: [] },
@@ -11,4 +11,4 @@ const listingSchema = new mongoose.Schema({
   // createdAt: { type: Date, default: Date.now }
 });
 
-export default mongoose.model('Listing', listingSchema);
+export default mongoose.model('Group', groupSchema);
