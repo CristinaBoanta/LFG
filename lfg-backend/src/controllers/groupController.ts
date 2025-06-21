@@ -2,8 +2,6 @@ import { Request, Response } from 'express';
 import Group from '../models/Group';
 
 const postGroup = async (req: Request, res: Response) => {
-    console.log(req);
-
     const { title, description } = req.body;
     try {
       const newGroup = new Group({ title, description });
@@ -14,4 +12,13 @@ const postGroup = async (req: Request, res: Response) => {
     }
 };
 
-export { postGroup };
+const getGroups = async (req: Request, res: Response) => {
+  try {
+    const groups = await Group.find({}).sort({createdAt: -1});
+    res.status(200).json(groups);
+  } catch (err) {
+    res.status(400).json({ error: 'Failed to fetch items ', err });
+  }
+}
+
+export { postGroup, getGroups };

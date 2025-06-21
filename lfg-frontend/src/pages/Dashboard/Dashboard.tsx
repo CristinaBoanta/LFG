@@ -1,4 +1,5 @@
 import type { JSX } from "react";
+import { useEffect, useState } from "react";
 import { GroupList } from "../../components/GroupList/GroupList";
 import {
     Dialog,
@@ -25,11 +26,17 @@ const initialValues: RegisterNewGroupFormValues = {
 
 
 export const Dashboard = (): JSX.Element => {
-
+    const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
     const validationSchema = useValidationSchemaCreateGroup();
 
     const handleGroupSubmit = async (values: RegisterNewGroupFormValues) => {
-        await postNewGroup(values.title, values.description);
+        try {
+            const response = await postNewGroup(values.title, values.description);
+            console.log('Response from posting a new group:', response);
+            setIsDialogOpen(false);
+        } catch (error) {
+            console.error('Failed to create group:', error);
+        }
     };
     
     return (
@@ -38,7 +45,7 @@ export const Dashboard = (): JSX.Element => {
                 <h1 className="text-2xl mb-4">{`{Game name}`} groups</h1>
 
                 <div className="my-3">
-                    <Dialog>
+                    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                         <DialogTrigger>Create new group</DialogTrigger>
                         <DialogContent className="bg-gray-800 min-h-96">
                             <DialogHeader>

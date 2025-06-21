@@ -2,11 +2,19 @@ import type { JSX } from "react";
 import cn from "classnames";
 import { useNavigate } from "react-router-dom";
 
-interface GroupListItemProps {
-    className?: string;
+interface Group {
+  _id: string;
+  title: string;
+  description: string;
+  __v: number;
 }
 
-export const GroupListItem = ({ className }: GroupListItemProps): JSX.Element => {
+interface GroupListItemProps {
+    className?: string;
+    group: Group;
+}
+
+export const GroupListItem = ({ className, group }: GroupListItemProps): JSX.Element => {
 
     const navigate = useNavigate();
 
@@ -22,8 +30,8 @@ export const GroupListItem = ({ className }: GroupListItemProps): JSX.Element =>
                     <img src="/images/dragon.png" alt="Group Logo" className="w-full h-full object-cover p-2" />
                 </div>
                 <div className="flex flex-col justify-center">
-                    <h3 className="text-lg font-bold">Game Room</h3>
-                    <p className="text-sm text-gray-500">Game Room Description</p>
+                    <h3 className="text-lg font-bold">{group.title}</h3>
+                    <p className="text-sm text-gray-500">{group.description}</p>
                     <div className="flex items-center gap-2">
                         <div className="text-sm text-gray-500">123 members</div>
                     </div>
