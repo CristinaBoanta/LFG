@@ -1,6 +1,6 @@
 import type { JSX } from "react";
-import { useEffect, useState } from "react";
-import { GroupList } from "../../components/GroupList/GroupList";
+import { useState } from "react";
+import { PublicGroupList } from "../../components/PublicGroupList/PublicGroupList";
 import {
     Dialog,
     DialogContent,
@@ -87,7 +87,7 @@ export const Dashboard = (): JSX.Element => {
                         </DialogContent>
                     </Dialog>
                 </div>
-                <GroupList />
+                <PublicGroupList />
             </div>
         </div>
     );

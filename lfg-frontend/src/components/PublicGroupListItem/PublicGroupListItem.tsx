@@ -14,7 +14,7 @@ interface GroupListItemProps {
     group: Group;
 }
 
-export const GroupListItem = ({ className, group }: GroupListItemProps): JSX.Element => {
+export const PublicGroupListItem = ({ className, group }: GroupListItemProps): JSX.Element => {
 
     const navigate = useNavigate();
 
