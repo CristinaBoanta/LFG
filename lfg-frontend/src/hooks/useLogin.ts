@@ -14,6 +14,9 @@ export const useLogin = () => {
 
         try {
             const response = await loginAuth(email, password);
+            if (response.data.token) {
+                localStorage.setItem('token', response.data.token);
+            }
             localStorage.setItem('user', JSON.stringify(response.data));
         
             dispatch(setUser(response.data));

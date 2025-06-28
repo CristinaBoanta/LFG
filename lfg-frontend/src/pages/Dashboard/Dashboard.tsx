@@ -1,5 +1,7 @@
 import type { JSX } from "react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../store";
 import { PublicGroupList } from "../../components/PublicGroupList/PublicGroupList";
 import {
     Dialog,
@@ -24,12 +26,19 @@ const initialValues: RegisterNewGroupFormValues = {
     description: ''
 };
 
-
 export const Dashboard = (): JSX.Element => {
     const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+    const [postGroupError, setPostGroupError] = useState<string>("");
     const validationSchema = useValidationSchemaCreateGroup();
 
+    const user = useSelector((state: RootState) => state.auth.user);
+
     const handleGroupSubmit = async (values: RegisterNewGroupFormValues) => {
+        if (!user) {
+            setPostGroupError("You must be logged in to submit a group.")
+            return;
+        }
+
         try {
             const response = await postNewGroup(values.title, values.description);
             console.log('Response from posting a new group:', response);
@@ -80,6 +89,8 @@ export const Dashboard = (): JSX.Element => {
                                             </div>
 
                                             <Button type="submit">Create new group</Button>
+
+                                            {postGroupError && <div className="text-red-500">{postGroupError}</div>}
                                         </Form>
                                     </Formik>
                                 </DialogDescription>

@@ -11,21 +11,22 @@ export const UserGroupList = (): JSX.Element => {
   const dispatch = useDispatch();
 
   const groups = useSelector((state: RootState) => state.groups.groups);
+  const user = useSelector((state: RootState) => state.auth.user);
 
   const fetchGroups = async () => {
     try {
       const response = await getAllGroups();
-
       dispatch(setGroups(response.data));
-
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    fetchGroups();
-  }, [])
+    if (user) {
+      fetchGroups();
+    }
+  }, [user])
 
   return (
     <div className="flex flex-col gap-3">
