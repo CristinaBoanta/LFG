@@ -13,7 +13,7 @@ const postGroup = async (req: Request, res: Response) => {
     }
 };
 
-const getGroups = async (req: Request, res: Response) => {
+const getUserGroups = async (req: Request, res: Response) => {
   try {
     const user_id = req.user._id;
     const groups = await Group.find({ user_id }).sort({createdAt: -1});
@@ -23,4 +23,13 @@ const getGroups = async (req: Request, res: Response) => {
   }
 }
 
-export { postGroup, getGroups };
+const getPublicGroups = async (req: Request, res: Response) => {
+  try {
+    const groups = await Group.find({}).sort({createdAt: -1});
+    res.status(200).json(groups);
+  } catch (err) {
+    res.status(400).json({ error: 'Failed to fetch items ', err });
+  }
+}
+
+export { postGroup, getUserGroups, getPublicGroups };

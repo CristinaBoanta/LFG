@@ -20,14 +20,14 @@ const initialState: GroupsState = {
   error: null,
 };
 
-const groupsSlice = createSlice({
-  name: 'groups',
+const publicGroupsSlice = createSlice({
+  name: 'publicGroups',
   initialState,
   reducers: {
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
-    setGroups: (state, action: PayloadAction<Group[]>) => {
+    setPublicGroups: (state, action: PayloadAction<Group[]>) => {
       state.groups = action.payload;
       state.error = null;
     },
@@ -37,6 +37,6 @@ const groupsSlice = createSlice({
   },
 });
 
-export const { setLoading, setGroups, setError } = groupsSlice.actions;
+export const { setLoading, setPublicGroups, setError } = publicGroupsSlice.actions;
 
-export default groupsSlice.reducer;
+export default publicGroupsSlice.reducer;

@@ -1,8 +1,8 @@
 import type { JSX } from "react";
-import { getAllGroups } from "../../lib/api/group";
+import { getUserGroups } from "../../lib/api/group";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setGroups } from "../../store/groupsSlice";
+import { setUserGroups } from "../../store/userGroupsSlice";
 import type { RootState } from "../../store";
 import { UserGroupListItem } from "../UserGroupListItem/UserGroupListItem";
 
@@ -10,13 +10,13 @@ export const UserGroupList = (): JSX.Element => {
 
   const dispatch = useDispatch();
 
-  const groups = useSelector((state: RootState) => state.groups.groups);
+  const groups = useSelector((state: RootState) => state.userGroups.groups);
   const user = useSelector((state: RootState) => state.auth.user);
 
   const fetchGroups = async () => {
     try {
-      const response = await getAllGroups();
-      dispatch(setGroups(response.data));
+      const response = await getUserGroups();
+      dispatch(setUserGroups(response.data));
     } catch (error) {
       console.log(error);
     }

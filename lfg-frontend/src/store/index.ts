@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import groupsReducer from './groupsSlice';
+import userGroupsReducer from './userGroupsSlice';
+import publicGroupsReducer from './publicGroupsSlice';
 import authReducer from './authSlice';
 
 export const store = configureStore({
   reducer: {
-    groups: groupsReducer,
+    userGroups: userGroupsReducer,
+    publicGroups: publicGroupsReducer,
     auth: authReducer,
   },
 });
