@@ -12,6 +12,10 @@ const groupSchema = new mongoose.Schema({
   user_id: {
     type: String,
     required: true
+  },
+  members: {
+    type: [String],
+    default: []
   }
 }, { timestamps: true });
 

@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 import userRoutes from './routes/user';
 import groupsRoutes from './routes/groups';
 import { messagesRouter } from './routes/messages';
+import joinRequestsRoutes from './routes/joinRequests';
+import docsRoutes from './routes/docs';
 
 dotenv.config();
 
@@ -26,6 +28,8 @@ app.use((req, res, next) => {
 app.use('/api/user', userRoutes);
 app.use('/api/groups', groupsRoutes);
 app.use('/api/messages', messagesRouter);
+app.use('/api/join-requests', joinRequestsRoutes);
+app.use('/api/docs', docsRoutes);
 
 mongoose.connect(MONGO_URI)
   .then(() => {

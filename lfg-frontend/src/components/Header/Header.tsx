@@ -5,6 +5,15 @@ import { Button } from "../Button/Button";
 import { useLogout } from "../../hooks/useLogout";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store";
+import { HiOutlineBell } from "react-icons/hi";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "../Dropdown/Dropdown";
 
 export const Header = (): JSX.Element => {
 
@@ -44,6 +53,38 @@ export const Header = (): JSX.Element => {
                                 <div>My profile</div>
                             </Link>}
                             {user && <div className="text-gray-600">{user.email}</div>}
+                            <div>
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger>
+                                        <HiOutlineBell />
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent className="bg-gray-800">
+                                        {/* <DropdownMenuLabel>My Account</DropdownMenuLabel> */}
+                                        {/* <DropdownMenuSeparator /> */}
+                                        {[1, 2, 3].map(() => {
+                                            return (
+                                                <>
+                                                    <DropdownMenuItem>
+                                                        <div className="flex flex-col gap-2">
+                                                            {`User {requester} is requesting access to group {groupName}`}
+
+                                                            <div className="flex gap-2">
+                                                                <Button variant="outline">
+                                                                    Approve
+                                                                </Button>
+                                                                <Button variant="outline">
+                                                                    Reject
+                                                                </Button>
+                                                            </div>
+                                                        </div>
+                                                    </DropdownMenuItem>
+                                                    {/* <DropdownMenuSeparator /> */}
+                                                </>
+                                            )
+                                        })}
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            </div>
                             {user && <Button variant="outline" onClick={handleLogout}>Logout</Button>}
                         </div>
                     </nav>

@@ -5,7 +5,7 @@ const postGroup = async (req: Request, res: Response) => {
     const { title, description } = req.body;
     try {
       const user_id = req.user._id;
-      const newGroup = new Group({ title, description, user_id });
+      const newGroup = new Group({ title, description, user_id, members: [user_id] });
       await newGroup.save();
       res.status(201).json(newGroup);
     } catch (err) {
