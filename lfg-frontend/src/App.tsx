@@ -30,7 +30,7 @@ useEffect(() => {
     <BrowserRouter>
       <div className="h-full">
         <Header />
-        <div className='flex-grow w-full max-w-8/10 mx-auto'>
+        <div className='flex-grow w-full max-w-8/10 mx-auto py-6'>
           <Routes>
             <Route path="/" element={user ? <Homepage /> : <Navigate to="/login" />} />
             <Route path="/about" element={<About />} />
