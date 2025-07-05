@@ -8,6 +8,8 @@ export interface JoinRequest {
   status: 'pending' | 'approved' | 'rejected';
   createdAt: string;
   updatedAt: string;
+  groupTitle: string;
+  username: string;
   __v: number;
 }
 

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import JoinRequest from '../models/JoinRequest';
 import Group from '../models/Group';
+import { User } from '../models/userModel';
 import { GroupErrorCodes, JoinRequestErrorCodes, ERROR_MESSAGES, ERROR_STATUS_CODES } from '../errors/errorCodes';
 
 const createJoinRequest = async (req: Request, res: Response) => {
@@ -60,19 +61,30 @@ const createJoinRequest = async (req: Request, res: Response) => {
 };
 
 const getGroupJoinRequests = async (req: Request, res: Response) => {
-    console.log('get join requests controller working properly')
     try {
         // the id of the user who makes the request
         const user_id = req.user._id;
         const groups = await Group.find({ user_id });
+
         const groupIDs = groups.map((group) => {
             return group._id;
         })
-        const joinRequest = await JoinRequest.find({
+
+        const joinRequests = await JoinRequest.find({
             group_id: { $in: groupIDs }
         });
 
-        res.status(200).json(joinRequest);
+        const joinRequestsWithUsername = [];
+        for (let joinRequest of joinRequests) {
+            const user = await User.findById(joinRequest.requester_id);
+            const group = await Group.findById(joinRequest.group_id);
+            const joinRequestObj = joinRequest.toObject() as any;
+            joinRequestObj.username = user?.username;
+            joinRequestObj.groupTitle = group?.title;
+            joinRequestsWithUsername.push(joinRequestObj);
+        }
+
+        res.status(200).json(joinRequestsWithUsername);
 
     } catch (err) {
         res.status(500).json({ error: 'Failed to fetch join requests', err });

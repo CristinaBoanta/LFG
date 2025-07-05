@@ -11,6 +11,7 @@ const createToken = (_id: string) => {
 
 // login user
 const loginUser = async (req: Request, res: Response) => {
+    
     const { email, password } = req.body;
 
     try {
@@ -19,13 +20,13 @@ const loginUser = async (req: Request, res: Response) => {
         // create token
         const token = createToken(user._id.toString());
         
-        res.status(200).json({ email, token });
+        res.status(200).json({ email, username: user.username, token });
+
+        console.log(user, ' <-- yay, i found the user')
     } catch(error: any) {
-        console.error('Registration error:', error.message);
+        console.error('Login error:', error.message);
         res.status(400).json({ error: error.message });
     }
-
-    res.json({ message: 'Login user' });
 }
 
 // register user
