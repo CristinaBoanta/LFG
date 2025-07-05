@@ -8,12 +8,12 @@ export const useRegister = () => {
     const [error, setError] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const register = async (email: string, password: string) => {
+    const register = async (email: string, password: string, username: string) => {
         setIsLoading(true);
         setError("");
 
         try {
-            const response = await registerAuth(email, password);
+            const response = await registerAuth(email, password, username);
             localStorage.setItem('user', JSON.stringify(response.data));
 
             console.log({response});

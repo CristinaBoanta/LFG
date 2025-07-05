@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import {
     Formik,
     Form,
@@ -11,27 +11,28 @@ import { useRegister } from "../../hooks/useRegister";
 interface RegisterFormValues {
     email: string;
     password: string;
+    username: string;
 }
 
 const initialValues: RegisterFormValues = {
     email: '',
-    password: ''
+    password: '',
+    username: ''
 };
 
 const RegisterFormFields = () => {
     const { handleChange } = useFormikContext();
 
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-
     const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
         handleChange(e);
-        setEmail(e.target.value);
     }
 
     const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
         handleChange(e);
-        setPassword(e.target.value);
+    }
+
+    const handleUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
+        handleChange(e);
     }
 
     return (
@@ -44,6 +45,17 @@ const RegisterFormFields = () => {
                     type="email"
                     onChange={handleEmail}
                     placeholder="Your email address..."
+                    className="border border-gray-300 rounded-md p-2"
+                />
+            </div>
+            <div className="flex flex-col gap-2">
+                <label htmlFor="email">Username</label>
+                <Field
+                    id="username"
+                    name="username"
+                    type="text"
+                    onChange={handleUsername}
+                    placeholder="Choose an username"
                     className="border border-gray-300 rounded-md p-2"
                 />
             </div>
@@ -68,7 +80,7 @@ export const Register = () => {
     const { register, isLoading, error } = useRegister();
 
     const handleSubmit = async (values: RegisterFormValues) => {
-        await register(values.email, values.password);
+        await register(values.email, values.password, values.username);
     }
 
     return (

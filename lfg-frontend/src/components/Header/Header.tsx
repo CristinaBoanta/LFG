@@ -3,25 +3,41 @@ import { FaUser } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { Button } from "../Button/Button";
 import { useLogout } from "../../hooks/useLogout";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../store";
 import { HiOutlineBell } from "react-icons/hi";
+import { getJoinRequests } from "../../lib/api/joinRequest";
+import { setJoinRequests } from "../../store/joinRequests";
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "../Dropdown/Dropdown";
 
 export const Header = (): JSX.Element => {
 
     const { logout } = useLogout();
+    const dispatch = useDispatch();
 
     const user = useSelector((state: RootState) => state.auth.user);
+    const joinRequests = useSelector((state: RootState) => state.joinRequests.joinRequestList);
+
     const handleLogout = () => {
         logout();
+    }
+
+    const fetchJoinRequests = async () => {
+        try {
+            const response = await getJoinRequests();
+            dispatch(setJoinRequests(response.data));
+
+            console.log(response.data, ' these are the join requests from API...');
+
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            console.log(error, ' ...Failed to fetch join requests')
+        }
     }
 
     return (
@@ -54,19 +70,25 @@ export const Header = (): JSX.Element => {
                             </Link>}
                             {user && <div className="text-gray-600">{user.email}</div>}
                             <div>
-                                <DropdownMenu>
+                                <DropdownMenu onOpenChange={(open) => {
+                                    if (open) {
+                                        fetchJoinRequests();
+                                    }
+                                }}>
                                     <DropdownMenuTrigger>
                                         <HiOutlineBell />
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent className="bg-gray-800">
-                                        {/* <DropdownMenuLabel>My Account</DropdownMenuLabel> */}
-                                        {/* <DropdownMenuSeparator /> */}
-                                        {[1, 2, 3].map(() => {
-                                            return (
-                                                <>
-                                                    <DropdownMenuItem>
+                                        {joinRequests.length === 0 ? (
+                                            <DropdownMenuItem>
+                                                <div className="text-gray-400">No join requests</div>
+                                            </DropdownMenuItem>
+                                        ) : (
+                                            joinRequests.map((request) => {
+                                                return (
+                                                    <DropdownMenuItem key={request._id}>
                                                         <div className="flex flex-col gap-2">
-                                                            {`User {requester} is requesting access to group {groupName}`}
+                                                            <div>User {request.requester_id} is requesting access to group {request.group_id}</div>
 
                                                             <div className="flex gap-2">
                                                                 <Button variant="outline">
@@ -78,10 +100,9 @@ export const Header = (): JSX.Element => {
                                                             </div>
                                                         </div>
                                                     </DropdownMenuItem>
-                                                    {/* <DropdownMenuSeparator /> */}
-                                                </>
-                                            )
-                                        })}
+                                                )
+                                            })
+                                        )}
                                     </DropdownMenuContent>
                                 </DropdownMenu>
                             </div>

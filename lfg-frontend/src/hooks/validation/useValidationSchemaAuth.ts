@@ -2,6 +2,7 @@ import * as Yup from 'yup';
 
 const registerSchema = Yup.object().shape({
   email: Yup.string().email('Invalid Email').required('Email is required'),
+  username: Yup.string().required('Username is required'),
   password: Yup.string().required('Password is required'),
   // confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Passwords do not match')
 });

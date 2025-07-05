@@ -8,15 +8,21 @@ interface IUser {
   _id: mongoose.Types.ObjectId;
   email: string;
   password: string;
+  username: string;
 }
 
 interface UserModel extends mongoose.Model<IUser> {
-  register(email: string, password: string): Promise<IUser>;
+  register(email: string, password: string, username: string): Promise<IUser>;
   login(email: string, password: string): Promise<IUser>;
 }
 
 const userSchema = new Schema<IUser, UserModel>({
   email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  username: {
     type: String,
     required: true,
     unique: true,
@@ -34,11 +40,11 @@ const userSchema = new Schema<IUser, UserModel>({
 
 // static method to register a user
 
-userSchema.statics.register = async function (this: mongoose.Model<any>, email: string, password: string) {
+userSchema.statics.register = async function (this: mongoose.Model<any>, email: string, password: string, username: string) {
 
   // validation
 
-  if (!email || !password) {
+  if (!email || !password || !username) {
     throw new Error('All fields are required');
   }
 
@@ -51,15 +57,32 @@ userSchema.statics.register = async function (this: mongoose.Model<any>, email: 
     throw new Error('Password is not strong enough');
   }
 
+  if (!validator.isLength(username, { min: 3, max: 20 })) {
+    throw new Error('Username must be between 3 and 20 characters');
+  }
+
+  if (!validator.isAlphanumeric(username, 'en-US', { ignore: '_-' })) {
+    throw new Error('Username can only contain letters, numbers, underscores, and hyphens');
+  }
+
+  if (!validator.isAscii(username)) {
+    throw new Error('Username can only contain ASCII characters');
+  }
+
   const exists = await this.findOne({ email });
   if (exists) {
     throw new Error('Email already in use');
   }
 
+  const usernameExists = await this.findOne({ username });
+  if (usernameExists) {
+    throw new Error('Username already in use');
+  }
+
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
 
-  const user = await this.create({ email, password: hash });
+  const user = await this.create({ email, username, password: hash });
   return user;
 }
 
